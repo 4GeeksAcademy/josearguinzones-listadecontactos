@@ -4,10 +4,14 @@ import PropTypes from "prop-types";
 import { Context } from "../store/appContext";
 import propTypes from "prop-types";
 
-export const Modal = props => {
+export const ModalEdit = props => {
 	const [state, setState] = useState({
 		//initialize state here
 	});
+	const [name, setName] = useState("");
+	const [email, setEmail] = useState("");
+	const [address, setAddress] = useState("");
+	const [phone, setPhone] = useState("");
 	const { actions } = useContext(Context);
 	return (
 		<div className="modal" tabIndex="-1" role="dialog" style={{ display: props.show ? "inline-block" : "none" }}>
@@ -29,7 +33,48 @@ export const Modal = props => {
 						)}
 					</div>
 					<div className="modal-body">
-						<p>Warning: unknown consequences after this point... Kidding!</p>
+						<form>
+							<div className="form-group">
+								<label>Full Name</label>
+								<input
+									type="text"
+									className="form-control"
+									placeholder="Full Name"
+									value={name}
+									onChange={e => setName(e.target.value)}
+								/>
+							</div>
+							<div className="form-group">
+								<label>Email</label>
+								<input
+									type="email"
+									className="form-control"
+									placeholder="Enter email "
+									value={email}
+									onChange={e => setEmail(e.target.value)}
+								/>
+							</div>
+							<div className="form-group">
+								<label>Phone</label>
+								<input
+									type="phone"
+									className="form-control"
+									placeholder="Enter phone"
+									value={phone}
+									onChange={e => setPhone(e.target.value)}
+								/>
+							</div>
+							<div className="form-group">
+								<label>Address</label>
+								<input
+									type="text"
+									className="form-control"
+									placeholder="Enter address"
+									value={address}
+									onChange={e => setAddress(e.target.value)}
+								/>
+							</div>
+						</form>
 					</div>
 					<div className="modal-footer">
 						<button type="button" className="btn btn-primary">
@@ -37,7 +82,7 @@ export const Modal = props => {
 						</button>
 						<button
 							type="button"
-							onClick={() => actions.borrarContactos(props.id)}
+							onClick={() => actions.editarContacto(name, email, address, phone, props.id)}
 							className="btn btn-secondary"
 							data-dismiss="modal">
 							Do it!
@@ -52,7 +97,7 @@ export const Modal = props => {
  * Define the data-types for
  * your component's properties
  **/
-Modal.propTypes = {
+ModalEdit.propTypes = {
 	history: PropTypes.object,
 	onClose: PropTypes.func,
 	show: PropTypes.bool,
@@ -63,7 +108,7 @@ Modal.propTypes = {
  * Define the default values for
  * your component's properties
  **/
-Modal.defaultProps = {
+ModalEdit.defaultProps = {
 	show: false,
 	onClose: null
 };
